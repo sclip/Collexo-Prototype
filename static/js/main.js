@@ -20,7 +20,7 @@ const productsView = {
                     id: 0,
                     name: "iPhone 13",
                     desc: "Apple - 5G smartphone 128GB, Midnight",
-                    itemImg: "https://www.elgiganten.se/image/dv_web_D180001002838378/361879/iphone-13-5g-smartphone-128gb-midnight--pdp_zoom-3000.jpg",
+                    itemImg: "/img/iphoneimg.png",
                     companyImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Elgiganten_logo.svg/1280px-Elgiganten_logo.svg.png",
                     time: "+1 år",
                     timeColor: colors.SUCCESS
