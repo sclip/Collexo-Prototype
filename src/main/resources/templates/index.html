@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collexo</title>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Tajawal&family=Titillium+Web&display=swap" rel="stylesheet">
+
+	<link type="text/css" rel="stylesheet" href="/css/normalize.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/master.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/misc.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/layout.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/main.css"/>
+	<link type="text/css" rel="stylesheet" href="/css/product.css"/>
+	
+	<script src="https://unpkg.com/vue@next"></script>
+	<script src="/js/main.js"></script>
+</head>
+<body id="products-container">
+	<div class="main">
+		<div class="nav-container">
+    	    <div>
+				<img id="logo" src="/img/logo.png" alt="logo">
+			</div>
+			<div class="h-container">
+				<div class="center side-nav-item" v-if="displayingProducts == true">
+					<span v-on:click="toggleFilterSettings()" class="material-icons-outlined md-48 noselect button">
+						filter_alt
+					</span>
+				</div>
+				<div class="center side-nav-item">
+					<span class="material-icons md-48 noselect button" v-on:click="toggleDisplayKvitton()">menu</span>
+				</div>
+			</div>
+    	</div>
+    	<div class="main-content" :class="{ mtop: !displayingKvitton }">
+			<div v-if="displayingProducts == true && displayingKvitton == false" class="item-card" v-for="product in products" :style="{ 'border-color': product.timeColor }">
+				<div class="img-container noselect" :style="{ 'border-color': product.timeColor }">
+					<img v-bind:src="product.itemImg" alt="{[{ product.name }]}">
+					<div class="img-corner-info">
+						<p :style="{ color: product.timeColor }">{[{ product.time }]}</p>
+					</div>
+				</div>
+				<div class="v-container">
+					<div class="item-info">
+						<div class="h-container">
+							<h2>{[{ product.name }]}</h2>
+							<span
+									v-on:click="toggleProductsDisplay()"
+									class="material-icons noselect launch-btn button"
+							>
+								launch
+							</span>
+						</div>
+						<!--
+						<p>{{ product.desc }}</p>
+						-->
+					</div>
+					<div class="company-link noselect">
+						<img v-bind:src="product.companyImg" alt="{[{ product.name }]}">
+					</div>
+				</div>
+			</div>
+			<div v-if="displayingProducts == false && displayingAlternatives == false && displayingKvitton == false" class="content main-content-card">
+				<div class="img-container">
+					<img src="https://www.elgiganten.se/image/dv_web_D180001002744045/300101/lg-55-up75-4k-led-tv--pdp_zoom-3000--pdp_main-960.jpg" alt="Product image">
+				</div>
+				
+				<div class="desc-container v-container">
+					<h2>LED-TV</h2>
+					<div class="v-container dropdowns-container">
+						<div class="form-row dropdown-row">
+							<div class="h-container">
+								<p>Produktinformation</p>
+								<span class="material-icons-outlined md-36 noselect button">arrow_drop_down</span>
+							</div>
+						</div>
+						<div class="form-row dropdown-row">
+							<div class="h-container" v-on:click="toggleExampleDropdown()">
+								<p>Information gällande garanti</p>
+								<span :class="{ clicked: showExampleDropdown == true }" class="material-icons-outlined md-36 noselect button">arrow_drop_down</span>
+							</div>
+							<div class="dropdown-content" v-if="showExampleDropdown == true">
+								Produkten köptes vid: Netonnet Jönköping, Vasavägen 3. <br><br>
+
+Datum: 2019 juni 28.<br><br>
+
+Utgår: 2022 juni 28.<br>
+<p style="color: #222222BF; font-size: 0.9em;">
+*Garantin gäller endast vid produktfel, och inte vid skador orsakade av konsumenten. Exempelvis: Vattenskador och fallskador.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="final-container v-container">
+					<div class="buttons-flexbox">
+						<div class="button return-button" v-on:click="toggleShowQr()">
+							<span class="material-icons-outlined">assignment_return</span>
+							<p>
+								Returnera
+							</p>
+						</div>
+						<div class="button return-button" v-on:click="toggleDisplayAlternatives()">
+							<span class="material-icons">list</span>
+							<p>
+								Alternativ
+							</p>
+						</div>
+					</div>
+					<div>
+						<div v-on:click="toggleProductsDisplay()" class="noselect button" style="width: 6rem; height: 4rem; "></div>
+					</div>
+				</div>
+			</div>
+    		<div v-if="displayingProducts == false && displayingAlternatives == true" class="content main-content-card">
+				<div style="padding: 0.4em">
+					<div class="altCategory text">
+						<span class="material-icons">build</span>
+						<div class="cat-text">Reparera</div>
+					</div>
+					<div class="altCategory text">
+						<span class="material-icons">price_check</span>
+						<div class="cat-text">Prisjämförelser</div>
+					</div>
+					<div class="altCategory text">
+						<span class="material-icons">store</span>
+						<div class="cat-text">Närmaste återförsäljare</div>
+					</div>
+					<div class="altCategory text">
+						<span class="material-icons">local_offer</span>
+						<div class="cat-text">Andrahandsförsäljare</div>
+					</div>
+					<div class="altCategory text">
+						<span class="material-icons">local_offer</span>
+						<div class="cat-text">Tillbehör</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="displayingKvitton == true" class="content">
+				<div class="kvitton-nav">
+					<div class="nav-item selected">Alla kvitton</div>
+					<div class="nav-item">Butiker</div>
+				</div>
+				<div style="padding: 0.4rem">
+					<p class="muted">Onsdag, 29 juli</p>
+					<div class="kvitto-box">
+						<div class="image-container">
+							<img class="noselect" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/ICA-logotyp.png/1200px-ICA-logotyp.png" alt="Kvittobild">
+						</div>
+						<div>
+							<h2>ICA Kvantum</h2>
+							<p>69 kr</p>
+						</div>
+					</div>
+					<p class="muted">Måndag, 27 juli</p>
+					<div class="kvitto-box">
+						<div class="image-container">
+							<img class="noselect" src="https://about.clasohlson.com/contentassets/8089fdee532040cbbdd6c56c75976f65/co_logotype_lockup_2row_horizontal_100mm_black_rgb.png?&quality=80&width=960&height=540" alt="Kvittoimage">
+						</div>
+						<div>
+							<h2>Clas Ohlson</h2>
+							<p>497 kr</p>
+						</div>
+					</div>
+					<div class="kvitto-box">
+						<div class="image-container">
+							<img class="noselect" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/ICA-logotyp.png/1200px-ICA-logotyp.png" alt="Kvittoimage">
+						</div>
+						<div>
+							<h2>ICA Kvantum</h2>
+							<p>799 kr</p>
+						</div>
+					</div>
+					<p class="muted">Söndag, 26 juli</p>
+					<div class="kvitto-box">
+						<div class="image-container">
+							<img class="noselect ikealogo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Ikea_logo.svg/1280px-Ikea_logo.svg.png" alt="">
+						</div>
+						<div>
+							<h2>IKEA</h2>
+							<p>1 999 kr</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+	<div v-if="showQr == true" class="overlay qr-container" v-on:click="toggleShowQr()">
+		<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F60%2Fc1%2F4a%2F60c14a43fb4745795b3b358868517e79.png&f=1&nofb=1" alt="QR">
+	</div>
+	
+	<div v-if="showFilterSettings == true" class="overlay popup-card">
+		<div class="h-container">
+			<h3>Filter och sorteringsalternativ</h3>
+			<span v-on:click="toggleFilterSettings()" class="material-icons-outlined md-36 noselect error-color">close</span>
+		</div>
+		
+		<div class="v-container">
+			<div class="input-row form-row">
+				<label for="selectSortingOption">Sortera efter</label>
+				<select id="selectSortingOption">
+					<option>Företagsnamn</option>
+					<option>Pris</option>
+					<option>Återstående tid</option>
+				</select>
+			</div>
+			
+			<div class="input-row form-row">
+				<label for="selectPriceRangeMin">Prisspann</label>
+				<div class="double-input">
+					<input id="selectPriceRangeMin" type="number" min="0" value="0">
+					<span style="margin-left: 0.4rem">-</span>
+					<input id="selectPriceRangeMax" type="number" min="0" value="0">
+				</div>
+			</div>
+			
+			<div class="form-row dropdown-row">
+				<div class="h-container" v-on:click="toggleExampleDropdown()">
+					<p>Återstående tid</p>
+					<span :class="{ clicked: showExampleDropdown == true }" class="material-icons-outlined md-36 noselect button">arrow_drop_down</span>
+				</div>
+				
+				<div class="dropdown-content" v-if="showExampleDropdown == true">
+					<div class="input-row form-row">
+						<label for="lowTime">0-6 månader</label>
+						<input type="checkbox" id="lowTime" checked>
+					</div>
+					
+					<div class="input-row form-row">
+						<label for="medTime">6-12 månader</label>
+						<input type="checkbox" id="medTime" checked>
+					</div>
+					
+					<div class="input-row form-row">
+						<label for="highTime">> 12 månader</label>
+						<input type="checkbox" id="highTime">
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-row dropdown-row">
+				<div class="h-container">
+					<p>Märke</p>
+					<span class="material-icons-outlined md-36 noselect button">arrow_drop_down</span>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+</html>

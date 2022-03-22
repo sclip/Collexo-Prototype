@@ -1,0 +1,28 @@
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #E2E4E2;
+  box-shadow: 0 0.05em 0.2rem #4448;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-width: 2px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #FFD700bf, #53cba7cc) 1;
+  border-top: none;
+  border-left: none;
+  border-right: none; }
+
+.side-nav-item {
+  margin: 0.3rem 0.5rem; }
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 94%;
+  padding-left: 3%;
+  padding-right: 3%; }
+
+/*# sourceMappingURL=layout.css.map */
